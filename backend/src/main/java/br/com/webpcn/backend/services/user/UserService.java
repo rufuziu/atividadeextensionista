@@ -1,8 +1,8 @@
-package br.com.webpcn.backend.services;
+package br.com.webpcn.backend.services.user;
 
 import br.com.webpcn.backend.entities.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-  public User findByEmail(String email);
+  public User findByUsername(String username);
 }

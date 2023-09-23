@@ -1,7 +1,7 @@
 package br.com.webpcn.backend.enums;
 
 public enum ERole {
-  USER,
-  TEACHER,
-  MODERATOR
+  ROLE_USER,
+  ROLE_TEACHER,
+  ROLE_MODERATOR
 }
