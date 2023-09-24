@@ -1,30 +1,32 @@
 package br.com.webpcn.backend.security;
 
-import br.com.webpcn.backend.services.user.UserService;
+import br.com.webpcn.backend.services.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
   @Autowired
-  UserService userService;
+  UserDetailsServiceImpl userDetailsServiceImpl;
 
   @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
+  public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
   @Bean
-  public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+  public DaoAuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-    auth.setUserDetailsService(userService); //set the custom user details service
+    auth.setUserDetailsService(userDetailsServiceImpl); //set the custom user details service
     auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
     return auth;
   }
@@ -37,6 +39,7 @@ public class SecurityConfig {
                                     .requestMatchers("/api/test").permitAll()
                                     .anyRequest().authenticated()
                     );
+    http.authenticationProvider(authenticationProvider());
     http.httpBasic(Customizer.withDefaults());
     return http.build();
   }

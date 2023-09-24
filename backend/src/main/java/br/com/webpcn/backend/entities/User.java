@@ -4,6 +4,7 @@ import br.com.webpcn.backend.enums.ERole;
 import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Entity(name = "users")
 public class User {
@@ -11,8 +12,11 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String fullName;
+  @Column(unique = true, length = 128, nullable = false)
   private String email;
+  @Column(unique = true, length = 16, nullable = false)
   private String username;
+  @Column(nullable = false)
   private String password;
   private boolean enabled;
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
