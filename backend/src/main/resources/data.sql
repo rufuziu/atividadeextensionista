@@ -3,7 +3,7 @@ VALUES('iury',
 'test@test.com',
 'test',
 '$2a$12$uGtD8HWhNPLa9AA0yUwrx.FCnwMNo5hH8VMuGQr3CGEY2QndrEoL6',
-true);
+false);
 
 INSERT INTO roles(user_role)
 VALUES(0);
