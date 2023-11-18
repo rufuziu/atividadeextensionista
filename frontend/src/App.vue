@@ -26,7 +26,7 @@
       <!-- drawer content -->
       <RouterLink to="/"><p>Home</p></RouterLink>
       <RouterLink to="/about"><p>About</p></RouterLink>
-      <RouterLink to="/"><p>Register</p></RouterLink>
+      <RouterLink to="/register"><p>Register</p></RouterLink>
       <RouterLink to="/"><p>Make-it grow</p></RouterLink>
     </q-drawer>
 
