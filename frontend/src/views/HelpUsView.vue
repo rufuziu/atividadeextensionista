@@ -1,7 +1,7 @@
 <template>
   <main>
 
-Home
+Ajude a causa
 
   </main>
 </template>
