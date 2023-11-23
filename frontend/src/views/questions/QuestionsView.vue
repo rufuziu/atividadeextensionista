@@ -1,8 +1,8 @@
 <template>
   <main>
     <div id="header" class="flex items-center justify-around">
-      <h3>Todas as perguntas</h3>
-      <q-btn color="primary">Faça uma pergunta</q-btn>
+      <h3>Todas as Dúvidas</h3>
+      <q-btn color="primary">tire sua dúvida</q-btn>
     </div>
     <div id="content" class="flex justify-center q-mx-lg q-gutter-x-md">
       <div id="filters" style="width:20%">

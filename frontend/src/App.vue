@@ -6,7 +6,7 @@
         <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          Reforço Ensino Básico WEB
+          Reforço Ensino Básico Web
         </q-toolbar-title>
 
         <q-input rounded outlined dense class="q-mx-lg" style="width:500px;" label="Pesquisar" v-model=text>
@@ -30,8 +30,11 @@
         <RouterLink to="/register" class="rlink">
           <p>Registre-se</p>
         </RouterLink>
+        <RouterLink to="/lessons" class="rlink">
+          <p>Lições</p>
+        </RouterLink>
         <RouterLink to="/questions" class="rlink">
-          <p>Perguntas</p>
+          <p>Dúvidas</p>
         </RouterLink>
         <RouterLink to="/exercises" class="rlink">
           <p>Exercícios</p>
@@ -45,24 +48,44 @@
       </div>
     </q-drawer>
 
-    <q-drawer v-model="rightDrawerOpen" side="right" behavior="desktop" overlay bordered
-    class="window-height flex justify-center items-center"
-    >
+    <q-drawer v-model="rightDrawerOpen" side="right" behavior="desktop" overlay bordered class="window-height">
       <!-- drawer content -->
-      <div v-if="login" class="q-ml-md q-mt-sm">
-        <!-- acesso do usuário -->
-      </div>
-      <div v-else class="q-ml-md q-mt-sm">
-        <!-- login -->
-        <q-input label="E-mail"/>
-        <q-input label="Senha"/>
-        <q-btn label="Logar" class="full-width q-mt-sm bg-orange text-black"/>
-        <q-btn label="Esqueci a senha" flat class="full-width q-mt-sm text-orange"/>
-      </div>
+      <q-card id="logged-menu" class="window-height" flat>
+        <q-btn label="X" :ripple="false" flat color="grey-6" @click="rightDrawerOpen = false" />
+        <q-card-section v-if="logged">
+
+          <div id="user-info" class="flex items-center q-gutter-x-md q-my-sm">
+            <q-avatar color="orange" text-color="white" icon="account_circle" />
+            <p>Usuário</p>
+          </div>
+
+          <q-separator />
+
+          <div id="routes" class="q-mt-md">
+            <RouterLink to="/user" class="rlink">
+              <p>Perfil</p>
+            </RouterLink>
+            <RouterLink to="/user/feedback" class="rlink">
+              <p>Meu feedback</p>
+            </RouterLink>
+            <RouterLink to="/" @click="logged=false" class="rlink">
+              <p>Logout</p>
+            </RouterLink>
+          </div>
+
+        </q-card-section>
+
+        <q-card-section class="q-mt-xl" v-else>
+          <q-input label="E-mail" />
+          <q-input label="Senha" />
+          <q-btn label="Logar" class="full-width q-mt-sm bg-orange text-black" @click="logged = true" />
+          <q-btn label="Esqueci a senha" flat class="full-width q-mt-sm text-orange" />
+        </q-card-section>
+      </q-card>
     </q-drawer>
 
     <q-page-container class="window-height">
-      <router-view />
+      <router-view @openRightDrawer="rightDrawerOpen = true" />
     </q-page-container>
 
   </q-layout>
@@ -75,7 +98,7 @@ import { RouterLink, RouterView } from 'vue-router'
 const leftDrawerOpen = ref(false)
 const rightDrawerOpen = ref(false)
 const text = ref("")
-let login = ref(false)
+let logged = ref(false)
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
@@ -86,11 +109,12 @@ function toggleRightDrawer() {
 </script>
 
 <style>
-.rlink{
-  color:black;
+.rlink {
+  color: black;
   text-decoration: none;
 }
-.rlink:hover{
-  color:orange;
+
+.rlink:hover {
+  color: orange;
 }
 </style>

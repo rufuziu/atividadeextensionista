@@ -12,8 +12,8 @@
                 <q-input v-model="user.email.value" type="text" label="E-mail" />
                 <q-input v-model="user.pwd.value" type="password" label="Senha" />
                 <q-input v-model="user.cpwd.value" type="password" label="Confirmação de Senha" />
-                <q-radio v-model="user.role.value" val="0">Estudante</q-radio>
-                <q-radio v-model="user.role.value" val="1">Professor</q-radio>
+                <q-radio disable v-model="user.role.value" val="0">Estudante</q-radio>
+                <q-radio disable v-model="user.role.value" val="1">Professor</q-radio>
             </div>
             <q-btn label="Atualizar" style="width: 100%;" class="q-mt-sm text-black" color="orange" @click="clog(user)" />
         </div>
