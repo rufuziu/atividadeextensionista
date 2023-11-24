@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-green">
+  <main>
 
     <div id="header" class="flex items-center justify-around">
       <h3>Lições</h3>

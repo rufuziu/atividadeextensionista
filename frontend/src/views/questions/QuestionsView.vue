@@ -1,38 +1,53 @@
+<script setup>
+import { ref } from "vue"
+
+let dialogStatus = ref(false)
+
+</script>
 <template>
   <main>
     <div id="header" class="flex items-center justify-around">
+      
+      <Dialog :dialogStatus="dialogStatus" @closeDialog="dialogStatus=false"/>
       <h3>Todas as Dúvidas</h3>
-      <q-btn color="primary">tire sua dúvida</q-btn>
+      <q-btn color="primary" @click="dialogStatus=true">tire sua dúvida</q-btn>
     </div>
     <div id="content" class="flex justify-center q-mx-lg q-gutter-x-md">
       <div id="filters" style="width:20%">
         <q-card id="filter-card" class="full-width">
           <q-card-section>
             <h4>Área de conhecimento</h4>
-            <q-checkbox v-model="teal" label="Linguagens, Códigos e suas Tecnologias" color="pink" />
-            <q-checkbox v-model="orange" label="Ciências Humanas" color="orange" />
-            <q-checkbox v-model="red" label="Ciências da Natureza" color="green" />
-            <q-checkbox v-model="cyan" label="Matemática e suas Tecnologias" color="blue" />
-            <q-checkbox v-model="cyan" label="Redação" color="red" />
+            <!-- v-model="teal" -->
+            <q-checkbox label="Linguagens, Códigos e suas Tecnologias" color="pink" />
+            <!-- v-model="orange" -->
+            <q-checkbox label="Ciências Humanas" color="orange" />
+            <!-- v-model="red" -->
+            <q-checkbox label="Ciências da Natureza" color="green" />
+            <!-- v-model="cyan" -->
+            <q-checkbox label="Matemática e suas Tecnologias" color="blue" />
+            <!-- v-model="cyan" -->
+            <q-checkbox label="Redação" color="red" />
           </q-card-section>
           <q-separator inset />
           <q-card-section>
             <h4>Matéria</h4>
-            <q-checkbox v-model="teal" label="Português" color="pink" />
-            <q-checkbox v-model="teal" label="Literatura" color="pink" />
-            <q-checkbox v-model="teal" label="Espanhol" color="pink" />
-            <q-checkbox v-model="teal" label="Inglês" color="pink" />
-            <q-checkbox v-model="teal" label="Educação Física" color="pink" />
-            <q-checkbox v-model="teal" label="Artes" color="pink" />
-            <q-checkbox v-model="orange" label="História" color="orange" />
-            <q-checkbox v-model="orange" label="Geografia" color="orange" />
-            <q-checkbox v-model="orange" label="Filosofia" color="orange" />
-            <q-checkbox v-model="orange" label="Sociologia" color="orange" />
-            <q-checkbox v-model="red" label="Biologia" color="green" />
-            <q-checkbox v-model="red" label="Química" color="green" />
-            <q-checkbox v-model="red" label="Física" color="green" />
-            <q-checkbox v-model="cyan" label="Matemática" color="blue" />
-            <q-checkbox v-model="cyan" label="Redação" color="red" />
+            <!-- v-model="teal" -->
+            <q-checkbox label="Português" color="pink" />
+            <q-checkbox label="Literatura" color="pink" />
+            <q-checkbox label="Espanhol" color="pink" />
+            <q-checkbox label="Inglês" color="pink" />
+            <q-checkbox label="Educação Física" color="pink" />
+            <q-checkbox label="Artes" color="pink" />
+            <!-- v-model="teal" -->
+            <q-checkbox label="História" color="orange" />
+            <q-checkbox label="Geografia" color="orange" />
+            <q-checkbox label="Filosofia" color="orange" />
+            <q-checkbox label="Sociologia" color="orange" />
+            <q-checkbox label="Biologia" color="green" />
+            <q-checkbox label="Química" color="green" />
+            <q-checkbox label="Física" color="green" />
+            <q-checkbox label="Matemática" color="blue" />
+            <q-checkbox label="Redação" color="red" />
           </q-card-section>
         </q-card>
       </div>
@@ -100,9 +115,6 @@
 
   </main>
 </template>
-
-<script setup>
-</script>
 
 <style>
 .question:hover {
