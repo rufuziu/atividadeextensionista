@@ -2,15 +2,19 @@
 import { ref } from "vue"
 
 let dialogStatus = ref(false)
+let dialogVar = ref('')
 
 </script>
 <template>
   <main>
     <div id="header" class="flex items-center justify-around">
-      
-      <Dialog :dialogStatus="dialogStatus" @closeDialog="dialogStatus=false"/>
+
+      <Dialog :dialogStatus="dialogStatus" :dialogVar="dialogVar" @closeDialog="dialogStatus = false" />
       <h3>Todas as Dúvidas</h3>
-      <q-btn color="primary" @click="dialogStatus=true">tire sua dúvida</q-btn>
+      <q-btn color="primary" @click="() => {
+        dialogStatus = true
+        dialogVar = 'newQuestion'
+      }">tire sua dúvida</q-btn>
     </div>
     <div id="content" class="flex justify-center q-mx-lg q-gutter-x-md">
       <div id="filters" style="width:20%">
@@ -53,7 +57,10 @@ let dialogStatus = ref(false)
       </div>
       <div id="questions" class="row" style="width: 70%;">
         <div id="col" class="col-12 q-gutter-y-md">
-          <q-card class="question">
+          <q-card class="question" @click="() => {
+            dialogStatus = true
+            dialogVar = 'openQuestionsOrLessons'
+          }">
             <q-item>
               <q-item-section avatar class="items-center">
                 <q-avatar color="blue" text-color="white" icon="account_circle" />
