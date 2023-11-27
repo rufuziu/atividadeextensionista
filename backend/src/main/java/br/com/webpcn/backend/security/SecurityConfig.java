@@ -41,8 +41,13 @@ public class SecurityConfig {
     http.csrf(csrf -> csrf.disable())
             .authorizeRequests(authorize -> authorize
                             .requestMatchers(new AntPathRequestMatcher("/h2/**")).permitAll() // Permitir acesso ao H2 Console
-                            .requestMatchers(new AntPathRequestMatcher("/account/register")).permitAll() // Permitir acesso ao H2 Console
-                            .requestMatchers(new AntPathRequestMatcher("/api/test")).authenticated() // Permitir acesso à rota /api/test
+                            .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll() // Permitir acesso ao SwaggerUI
+                            .requestMatchers(new AntPathRequestMatcher("/account/register")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/knowledgearea/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/course/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/lesson/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/exercise/**")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/api/test")).authenticated()
 //                    .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))

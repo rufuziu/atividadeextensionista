@@ -1,7 +1,7 @@
 package br.com.webpcn.backend.services.usertorole;
 
-import br.com.webpcn.backend.dtos.UserDTO;
-import br.com.webpcn.backend.dtos.UserToRoleDTO;
+import br.com.webpcn.backend.dtos.user.UserDTO;
+import br.com.webpcn.backend.dtos.user.UserToRoleDTO;
 import br.com.webpcn.backend.entities.user.UserToRole;
 import br.com.webpcn.backend.exceptions.usertorole.UserToRoleException;
 import br.com.webpcn.backend.repositories.usertorole.UserToRoleRepository;
