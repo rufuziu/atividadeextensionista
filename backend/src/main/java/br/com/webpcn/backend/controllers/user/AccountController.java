@@ -1,6 +1,6 @@
-package br.com.webpcn.backend.controllers;
+package br.com.webpcn.backend.controllers.user;
 
-import br.com.webpcn.backend.dtos.UserDTO;
+import br.com.webpcn.backend.dtos.user.UserDTO;
 import br.com.webpcn.backend.services.user.UserServiceImpl;
 import br.com.webpcn.backend.services.usertorole.UserToRoleService;
 import jakarta.validation.Valid;
