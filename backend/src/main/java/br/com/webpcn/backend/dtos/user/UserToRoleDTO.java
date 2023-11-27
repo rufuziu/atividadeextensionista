@@ -1,4 +1,4 @@
-package br.com.webpcn.backend.dtos;
+package br.com.webpcn.backend.dtos.user;
 
 import br.com.webpcn.backend.enums.ERole;
 
