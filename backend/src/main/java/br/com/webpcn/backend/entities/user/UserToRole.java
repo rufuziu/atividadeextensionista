@@ -1,4 +1,4 @@
-package br.com.webpcn.backend.entities;
+package br.com.webpcn.backend.entities.user;
 
 import jakarta.persistence.*;
 

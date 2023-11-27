@@ -1,10 +1,8 @@
-package br.com.webpcn.backend.entities;
+package br.com.webpcn.backend.entities.user;
 
-import br.com.webpcn.backend.enums.ERole;
 import jakarta.persistence.*;
 
 import java.util.Collection;
-import java.util.Set;
 
 @Entity(name = "users")
 public class User {

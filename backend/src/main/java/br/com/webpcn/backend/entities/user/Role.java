@@ -1,4 +1,4 @@
-package br.com.webpcn.backend.entities;
+package br.com.webpcn.backend.entities.user;
 
 import br.com.webpcn.backend.enums.ERole;
 import jakarta.persistence.Entity;
