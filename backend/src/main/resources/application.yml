@@ -1,5 +1,5 @@
 spring:
   application:
-    name: ms-auth-and-auto
+    name: ms-reforcoensinobasico
   profiles:
     active: DEV

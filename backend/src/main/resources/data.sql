@@ -2,7 +2,8 @@ INSERT INTO users(full_name,email,username,password,enabled)
 VALUES('iury',
 'test@test.com',
 'test',
-'$2a$12$uGtD8HWhNPLa9AA0yUwrx.FCnwMNo5hH8VMuGQr3CGEY2QndrEoL6',
+'$2a$10$j/dF6tCQUKYgom.AUfd7IOPHBA25Dj3jWj1uvCz9t8kPb4yePmgcC',
+--password bencrypted = test
 false);
 
 INSERT INTO roles(user_role)

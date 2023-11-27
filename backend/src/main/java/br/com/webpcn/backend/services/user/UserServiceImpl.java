@@ -1,7 +1,7 @@
 package br.com.webpcn.backend.services.user;
 
 import br.com.webpcn.backend.dtos.UserDTO;
-import br.com.webpcn.backend.entities.User;
+import br.com.webpcn.backend.entities.user.User;
 import br.com.webpcn.backend.exceptions.user.UserNotCreatedException;
 import br.com.webpcn.backend.repositories.user.UserRepository;
 import org.modelmapper.ModelMapper;

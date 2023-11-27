@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class TestController {
   @GetMapping("/test")
-  @PreAuthorize("hasRole('USER')")
+  @PreAuthorize("hasRole('ROLE_USER')")
   public String returnString(){
     return "ok";
   }
