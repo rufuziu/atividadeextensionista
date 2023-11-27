@@ -9,17 +9,17 @@ public class Exercise {
   public Exercise(){}
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
   private String name;
   private String content;
   private String result;
-  private long lessonId;
+  private Long lessonId;
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -47,11 +47,11 @@ public class Exercise {
     this.result = result;
   }
 
-  public long getLessonId() {
+  public Long getLessonId() {
     return lessonId;
   }
 
-  public void setLessonId(long lessonId) {
+  public void setLessonId(Long lessonId) {
     this.lessonId = lessonId;
   }
 }

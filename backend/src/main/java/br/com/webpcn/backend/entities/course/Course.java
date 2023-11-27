@@ -12,16 +12,16 @@ public class Course {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
   private String name;
 
-  private int knowledgeAreaId;
+  private Integer knowledgeAreaId;
 
-  public long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -33,11 +33,11 @@ public class Course {
     this.name = name;
   }
 
-  public int getKnowledgeAreaId() {
+  public Integer getKnowledgeAreaId() {
     return knowledgeAreaId;
   }
 
-  public void setKnowledgeAreaId(int knowledgeAreaId) {
+  public void setKnowledgeAreaId(Integer knowledgeAreaId) {
     this.knowledgeAreaId = knowledgeAreaId;
   }
 }

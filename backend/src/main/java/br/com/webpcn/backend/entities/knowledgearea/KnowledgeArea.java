@@ -2,20 +2,22 @@ package br.com.webpcn.backend.entities.knowledgearea;
 
 import jakarta.persistence.*;
 
-@Entity(name="knowledge_areas")
+@Entity(name = "knowledge_areas")
 public class KnowledgeArea {
-  public KnowledgeArea() {  }
+  public KnowledgeArea() {
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
   @Column(unique = true, length = 128, nullable = false)
   private String name;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
