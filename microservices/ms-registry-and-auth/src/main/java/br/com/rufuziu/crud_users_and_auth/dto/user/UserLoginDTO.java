@@ -1,23 +1,23 @@
 package br.com.rufuziu.crud_users_and_auth.dto.user;
 
 public class UserLoginDTO {
-    private Long id;
+    private String id;
     private String email;
     private String token;
 
     public UserLoginDTO() {}
 
-    public UserLoginDTO(Long id, String email, String token) {
+    public UserLoginDTO(String id, String email, String token) {
         this.id = id;
         this.email = email;
         this.token = token;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

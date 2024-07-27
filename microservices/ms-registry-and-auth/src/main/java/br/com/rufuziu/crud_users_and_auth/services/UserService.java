@@ -6,7 +6,6 @@ import br.com.rufuziu.crud_users_and_auth.exceptions.general.InvalidRequest;
 import br.com.rufuziu.crud_users_and_auth.exceptions.user.UserAlreadyExists;
 import br.com.rufuziu.crud_users_and_auth.exceptions.user.UserNotFound;
 import br.com.rufuziu.crud_users_and_auth.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class UserService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;
@@ -39,7 +37,7 @@ public class UserService {
 
     public Integer activateUserByEmail(String email) {
         if (repository.existsByEmailAndActiveFalse(email)) {
-            return repository.activateUserByEmail(email);
+            return null ; //repository.activateUserByEmail(email);
         } else {
             throw new InvalidRequest("Invalid request. IP registered.");
         }

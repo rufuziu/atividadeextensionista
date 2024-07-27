@@ -1,35 +1,38 @@
 package br.com.rufuziu.crud_users_and_auth.entity;
 
 import br.com.rufuziu.crud_users_and_auth.dto.user.UserDTO;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "users")
+
+@Document(collection = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @Email
-    @Column(unique = true)
     private String email;
     private String password;
     private LocalDateTime birthday;
     private Boolean active;
     private LocalDateTime loginDate;
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
         this.active = false;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,5 +79,13 @@ public class User {
     public void updateUser(UserDTO userDTO){
         this.email = userDTO.getEmail();
         this.birthday = userDTO.getBirthday();
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
     }
 }
