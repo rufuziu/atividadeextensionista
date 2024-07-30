@@ -58,6 +58,7 @@ public class UserService {
                 case ROLE_ADMIN:
                     if (adminRepository.existsByEmail(userDto.getEmail()))
                         throw new UserAlreadyExists(userDto.getEmail());
+                    userDto.setActive(Boolean.TRUE);
                     Admin admin = adminRepository.save(modelMapper.map(userDto, Admin.class));
                     userDto = modelMapper.map(admin, UserDTO.class);
                     break;
@@ -65,7 +66,6 @@ public class UserService {
                     if (studentRepository.existsByEmail(userDto.getEmail()))
                         throw new UserAlreadyExists(userDto.getEmail());
                     Student student = studentRepository.save(modelMapper.map(userDto, Student.class));
-
                     userDto = modelMapper.map(student, UserDTO.class);
                     break;
                 case ROLE_TEACHER:
@@ -79,21 +79,29 @@ public class UserService {
         return userDto;
     }
 
-    public Integer activateUserByEmail(UserToActivateDTO userDto) {
-        ERole role = userDto.getRoles().stream().findFirst().get().getName();
+    public UserDTO activateUserByEmail(UserToActivateDTO userToActivateDto) {
+        ERole role = userToActivateDto.getRoles().stream().findFirst().get().getName();
+        UserDTO userDto  = new UserDTO();
         switch (role) {
             case ROLE_STUDENT:
-                if (studentRepository.existsByEmailAndActiveFalse(userDto.getEmail())) {
-                    Optional<Student> student = studentRepository.findByEmail(userDto.getEmail());
+                if (studentRepository.existsByEmailAndActiveFalse(userToActivateDto.getEmail())) {
+                    Optional<Student> student = studentRepository.findByEmail(userToActivateDto.getEmail());
                     student.get().setActive(Boolean.TRUE);
-                    Student student2 = studentRepository.save(student.get());
+                    userDto = modelMapper.map(studentRepository.save(student.get()), UserDTO.class);
                 } else {
                     throw new InvalidRequest("Invalid request. IP registered.");
                 }
                 break;
             case ROLE_TEACHER:
+                if (teacherRepository.existsByEmailAndActiveFalse(userToActivateDto.getEmail())) {
+                    Optional<Teacher> teacher = teacherRepository.findByEmail(userToActivateDto.getEmail());
+                    teacher.get().setActive(Boolean.TRUE);
+                    userDto = modelMapper.map(teacherRepository.save(teacher.get()), UserDTO.class);
+                } else {
+                    throw new InvalidRequest("Invalid request. IP registered.");
+                }
                 break;
         }
-    return null;
+    return userDto;
     }
 }

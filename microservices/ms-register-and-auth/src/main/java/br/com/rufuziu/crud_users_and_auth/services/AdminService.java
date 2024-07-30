@@ -24,45 +24,4 @@ public class AdminService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDTO createUser(UserDTO userDto) {
-        if (repository.existsByEmail(userDto.getEmail())) throw new UserAlreadyExists(userDto.getEmail());
-
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
-        Admin admin = repository.save(modelMapper.map(userDto, Admin.class));
-
-        return modelMapper.map(admin,UserDTO.class);
-    }
-
-
-
-    public UserDTO readUser(String email) {
-        Optional<Admin> user = repository.findByEmail(email);
-
-        if (user.isPresent()) {
-            return modelMapper.map(user.get(), UserDTO.class);
-        } else throw new UserNotFound("User not found!");
-    }
-
-    public UserDTO updateUser(UserDTO userDTO, String email) {
-        if (userDTO.getEmail().contains(email)) {
-            Optional<Admin> user = repository.findByEmail(email);
-            if (user.isPresent()) {
-                user.get().updateUser(userDTO);
-                repository.save(user.get());
-                return modelMapper.map(user.get(), UserDTO.class);
-            } else {
-                String message = new StringBuilder()
-                        .append("User with email: ")
-                        .append(userDTO.getEmail())
-                        .append(" not found")
-                        .toString();
-                throw new UserNotFound(message);
-            }
-        } else throw new InvalidRequest("The emails don't match!");
-    }
-
-    public String deleteUser() {
-        return null;
-    }
 }

@@ -14,6 +14,7 @@ public class UserDTO {
     private String password;
     private LocalDateTime birthday;
     private LocalDateTime loginDate;
+    private Boolean active;
     private Set<Role> roles = new HashSet<>();
 
     public UserDTO() {
@@ -65,5 +66,13 @@ public class UserDTO {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

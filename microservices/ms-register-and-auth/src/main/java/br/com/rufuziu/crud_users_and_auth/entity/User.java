@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Document(collection = "users")
+//@Document(collection = "users")
 public class User {
     @Id
     private String id;

@@ -25,15 +25,15 @@ public class StudentService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDTO createUser(UserDTO userDto) {
-        if (repository.existsByEmail(userDto.getEmail())) throw new UserAlreadyExists(userDto.getEmail());
-
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
-        User user = repository.save(modelMapper.map(userDto, User.class));
-
-        return modelMapper.map(user,UserDTO.class);
-    }
+//    public UserDTO createUser(UserDTO userDto) {
+//        if (repository.existsByEmail(userDto.getEmail())) throw new UserAlreadyExists(userDto.getEmail());
+//
+//        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//
+//        User user = repository.save(modelMapper.map(userDto, User.class));
+//
+//        return modelMapper.map(user,UserDTO.class);
+//    }
 
     public Integer activateUserByEmail(String email) {
         if (repository.existsByEmailAndActiveFalse(email)) {

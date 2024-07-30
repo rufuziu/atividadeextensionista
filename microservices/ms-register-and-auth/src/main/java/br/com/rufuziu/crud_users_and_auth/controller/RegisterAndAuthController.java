@@ -47,7 +47,7 @@ public class RegisterAndAuthController {
                                                @RequestBody @Valid UserDTO userDto) {
         log.info(request.getRemoteAddr().concat(" is sending request to create a user"));
         userDto = userService.createUser(userDto);
-        if (userDto.getId().isEmpty()) {
+        if (!userDto.getId().isEmpty()) {
             log.info(request.getRemoteAddr().concat(" created a user"));
             return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
         } else {
