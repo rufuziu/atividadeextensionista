@@ -29,7 +29,7 @@ public class AdminController {
     }
 
 
-    @PatchMapping("v1/admin/active/user/{email}")
+    @PatchMapping("v1/admin/active/user")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> userActivate(HttpServletRequest request,
