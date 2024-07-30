@@ -60,11 +60,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 UserDetailsImpl userDetails = userService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken
-                                (userDetails,
+                                (
+                                        userDetails,
                                         null,
-                                        userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().
-                        buildDetails(request));
+                                        userDetails.getAuthorities()
+                                );
+                authentication
+                        .setDetails
+                                (
+                                        new WebAuthenticationDetailsSource().
+                                                buildDetails(request)
+                                );
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {

@@ -1,26 +1,29 @@
 package br.com.rufuziu.crud_users_and_auth.dto.user;
 
+import br.com.rufuziu.crud_users_and_auth.entity.Role;
 import br.com.rufuziu.crud_users_and_auth.enums.ERole;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDTO {
-    private Long id;
+    private String id;
     private String email;
     private String password;
     private LocalDateTime birthday;
     private LocalDateTime loginDate;
-    private ERole role;
+    private Set<Role> roles = new HashSet<>();
 
     public UserDTO() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,11 +59,11 @@ public class UserDTO {
         this.loginDate = loginDate;
     }
 
-    public ERole getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(ERole role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

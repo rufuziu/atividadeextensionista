@@ -34,13 +34,7 @@ public class AdminService {
         return modelMapper.map(admin,UserDTO.class);
     }
 
-    public Integer activateUserByEmail(String email) {
-        if (repository.existsByEmailAndActiveFalse(email)) {
-            return null ; //repository.activateUserByEmail(email);
-        } else {
-            throw new InvalidRequest("Invalid request. IP registered.");
-        }
-    }
+
 
     public UserDTO readUser(String email) {
         Optional<Admin> user = repository.findByEmail(email);

@@ -2,10 +2,12 @@ package br.com.rufuziu.crud_users_and_auth.controller;
 
 import br.com.rufuziu.crud_users_and_auth.services.AdminService;
 import br.com.rufuziu.crud_users_and_auth.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,8 @@ public class AdminController {
 
 
     @PatchMapping("v1/admin/active/user/{email}")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> userActivate(HttpServletRequest request,
                                                @PathVariable String email) {
         log.info(request.getRemoteAddr().concat(" is trying to activate the e-mail"));

@@ -58,8 +58,8 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/h2/**")
-                        .permitAll())
+                        auth.requestMatchers("/h2/**")
+                                .permitAll())
                 .headers(h -> h.frameOptions(f -> f.sameOrigin()));
 
         http
@@ -68,24 +68,19 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
-                                "/v3/api-docs/**",
-                                "/configuration/ui",
-                                "/swagger-resources/**",
-                                "/configuration/security",
-                                "/swagger-ui/**",
-                                "/webjars/**")
-                                .permitAll()
-                                .requestMatchers("/actuator/**")
-                                .permitAll()
-                                .requestMatchers("/api/v1/register/**")
-                                .permitAll()
-                                .requestMatchers("/api/v1/auth/**")
-                                .permitAll()
-                                .requestMatchers("/api/v1/admin/**")
+                                        "/v3/api-docs/**",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**",
+                                        "/actuator/**",
+                                        "/api/test/v1/**",
+                                        "/api/v1/register/**",
+                                        "/api/v1/auth/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated());
-
 
 
         http.authenticationProvider(authenticationProvider());
