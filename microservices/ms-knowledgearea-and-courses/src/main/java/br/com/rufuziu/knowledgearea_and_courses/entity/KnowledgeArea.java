@@ -1,6 +1,5 @@
 package br.com.rufuziu.knowledgearea_and_courses.entity;
 
-import br.com.rufuziu.knowledgearea_and_courses.enums.ERole;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

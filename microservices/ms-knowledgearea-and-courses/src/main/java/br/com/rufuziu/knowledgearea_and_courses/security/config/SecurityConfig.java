@@ -2,7 +2,6 @@ package br.com.rufuziu.knowledgearea_and_courses.security.config;
 
 import br.com.rufuziu.knowledgearea_and_courses.security.jwt.AuthTokenFilter;
 import br.com.rufuziu.knowledgearea_and_courses.security.jwt.JwtUtils;
-import br.com.rufuziu.knowledgearea_and_courses.security.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,35 +20,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @EnableWebSecurity
 public class SecurityConfig {
-    private final UserDetailsServiceImpl userService;
     private final JwtUtils jwtUtils;
 
-    public SecurityConfig(UserDetailsServiceImpl userService, JwtUtils jwtUtils) {
-        this.userService = userService;
+    public SecurityConfig( JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter(jwtUtils, userService);
+        return new AuthTokenFilter(jwtUtils);
     }
 
 
@@ -82,10 +61,8 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated());
 
-
-        http.authenticationProvider(authenticationProvider());
-
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter(),
+                UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

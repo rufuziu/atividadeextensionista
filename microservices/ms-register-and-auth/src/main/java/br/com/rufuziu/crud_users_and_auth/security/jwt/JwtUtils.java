@@ -8,11 +8,14 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -35,7 +38,11 @@ public class JwtUtils {
     }
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-        String jwt = generateTokenFromEmail(userPrincipal.getEmail());
+        //String jwt = generateTokenFromEmail(userPrincipal.getEmail());
+        String authority = userPrincipal.getAuthorities().stream().findFirst().get().getAuthority();
+        String jwt = generateTokenFromEmailandRole(
+                userPrincipal.getEmail(),
+                authority);
         return ResponseCookie.from(jwtCookie, jwt)
                 .path("/api")
                 .maxAge(24 * 60 * 60)
@@ -64,6 +71,18 @@ public class JwtUtils {
             throw e;
 //            logger.error("JWT claims string is empty: {}", e.getMessage());
         }
+    }
+
+    public String generateTokenFromEmailandRole(String email, String roleName) {
+        Map<String,String> claims = new HashMap<>();
+        claims.put("email",email);
+        claims.put("role",roleName);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(key(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String generateTokenFromEmail(String email) {

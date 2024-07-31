@@ -1,8 +1,5 @@
 package br.com.rufuziu.knowledgearea_and_courses.controller;
 
-import br.com.rufuziu.knowledgearea_and_courses.dto.user.UserToActivateDTO;
-import br.com.rufuziu.knowledgearea_and_courses.services.AdminService;
-import br.com.rufuziu.knowledgearea_and_courses.services.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -18,30 +15,18 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class AdminController {
 
-    private final AdminService adminService;
-    private final UserService userService;
     private final Logger log = LoggerFactory.getLogger(AdminController.class);
 
-    public AdminController(AdminService adminService,
-                           UserService userService) {
-        this.adminService = adminService;
-        this.userService = userService;
+    public AdminController() {
     }
 
 
     @PatchMapping("v1/admin/active/user")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<String> userActivate(HttpServletRequest request,
-                                               @RequestBody UserToActivateDTO userToActivateDTO) {
-        log.info(request.getRemoteAddr().concat(" is trying to activate the e-mail"));
-        if (userService.activateUserByEmail(userToActivateDTO).getActive()) {
-            log.info(request.getRemoteAddr().concat(" activated the e-mail"));
-            return ResponseEntity.ok("User activated!");
-        } else {
-            log.error(request.getRemoteAddr().concat(" not activated the e-mail"));
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<String> userActivate(HttpServletRequest request) {
+
+            return ResponseEntity.ok("Ok");
     }
 
 }

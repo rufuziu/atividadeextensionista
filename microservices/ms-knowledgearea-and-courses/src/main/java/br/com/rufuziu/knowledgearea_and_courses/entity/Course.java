@@ -1,14 +1,8 @@
 package br.com.rufuziu.knowledgearea_and_courses.entity;
 
-import br.com.rufuziu.knowledgearea_and_courses.dto.user.UserDTO;
-import jakarta.validation.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Document(collection = "courses")

@@ -1,7 +1,7 @@
 package br.com.rufuziu.knowledgearea_and_courses.security.jwt;
 
 import br.com.rufuziu.knowledgearea_and_courses.security.dto.UserDetailsImpl;
-import br.com.rufuziu.knowledgearea_and_courses.security.services.UserDetailsServiceImpl;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,12 +19,9 @@ import java.io.IOException;
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
-    private final UserDetailsServiceImpl userService;
 
-    public AuthTokenFilter(JwtUtils jwtUtils,
-                           UserDetailsServiceImpl userService) {
+    public AuthTokenFilter(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
-        this.userService = userService;
     }
 
     private String parseJwt(HttpServletRequest request) {
@@ -52,25 +49,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
 
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String email = jwtUtils.getEmailFromJwtToken(jwt);
+                Claims claims = jwtUtils.getEmailFromJwtToken(jwt);
 
+                var userDetails = UserDetailsImpl.build(
+                        claims.get("email", String.class),
+                        claims.get("role", String.class));
 
-                UserDetailsImpl userDetails = userService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken
-                                (
-                                        userDetails,
+                                (userDetails,
                                         null,
-                                        userDetails.getAuthorities()
-                                );
+                                        userDetails.getAuthorities());
                 authentication
                         .setDetails
-                                (
-                                        new WebAuthenticationDetailsSource().
-                                                buildDetails(request)
-                                );
+                                (new WebAuthenticationDetailsSource().
+                                        buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
             }
         } catch (Exception e) {
             throw e;

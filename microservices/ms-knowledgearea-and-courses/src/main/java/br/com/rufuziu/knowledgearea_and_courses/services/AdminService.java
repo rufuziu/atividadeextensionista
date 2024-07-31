@@ -7,14 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
-    private final CourseRepository repository;
-    private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public AdminService(CourseRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
+
+    public AdminService() {
     }
 
 }

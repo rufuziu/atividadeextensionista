@@ -1,18 +1,15 @@
 package br.com.rufuziu.knowledgearea_and_courses.security.jwt;
 
-import br.com.rufuziu.knowledgearea_and_courses.security.dto.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import java.security.Key;
-import java.util.Date;
 
 @Component
 public class JwtUtils {
@@ -33,15 +30,6 @@ public class JwtUtils {
         }
         else return null;
     }
-
-//    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-//        String jwt = generateTokenFromEmail(userPrincipal.getEmail());
-//        return ResponseCookie.from(jwtCookie, jwt)
-//                .path("/api")
-//                .maxAge(24 * 60 * 60)
-//                .httpOnly(true)
-//                .build();
-//    }
 
     private Key key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
@@ -66,21 +54,12 @@ public class JwtUtils {
         }
     }
 
-//    public String generateTokenFromEmail(String email) {
-//        return Jwts.builder()
-//                .setSubject(email)
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-//                .signWith(key(), SignatureAlgorithm.HS256)
-//                .compact();
-//    }
 
-    public String getEmailFromJwtToken(String token) {
+    public Claims getEmailFromJwtToken(String token) {
         return Jwts.parser()
                 .setSigningKey(key())
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 }

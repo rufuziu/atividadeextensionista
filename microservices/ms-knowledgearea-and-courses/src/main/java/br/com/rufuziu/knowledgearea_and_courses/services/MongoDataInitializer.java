@@ -1,10 +1,7 @@
 package br.com.rufuziu.knowledgearea_and_courses.services;
 
-import br.com.rufuziu.knowledgearea_and_courses.enums.ERole;
 import jakarta.annotation.PostConstruct;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
