@@ -5,15 +5,15 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document(collection = "courses")
-public class Course {
+@Document(collection = "subjects")
+public class Subject {
     @Id
     private String id;
     private String name;
     @DBRef
     private KnowledgeArea knowledgeArea;
 
-    public Course() {
+    public Subject() {
     }
 
     public String getId() {
