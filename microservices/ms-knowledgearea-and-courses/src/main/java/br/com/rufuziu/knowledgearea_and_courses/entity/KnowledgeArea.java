@@ -15,6 +15,10 @@ public class KnowledgeArea {
     public KnowledgeArea() {
     }
 
+    public KnowledgeArea(String name) {
+        this.name = name;
+    }
+
     public KnowledgeArea(String name, EducationLevel educationLevel) {
         this.name = name;
         this.educationLevel = educationLevel;

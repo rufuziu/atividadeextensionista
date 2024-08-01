@@ -10,10 +10,16 @@ public class Subject {
     @Id
     private String id;
     private String name;
+    private String content;
     @DBRef
     private KnowledgeArea knowledgeArea;
 
     public Subject() {
+    }
+
+    public Subject(String name, String content) {
+        this.name = name;
+        this.content = content;
     }
 
     public String getId() {
@@ -38,5 +44,13 @@ public class Subject {
 
     public void setKnowledgeArea(KnowledgeArea knowledgeArea) {
         this.knowledgeArea = knowledgeArea;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -3,6 +3,7 @@ package br.com.rufuziu.knowledgearea_and_courses.dto;
 public class SubjectDTO {
     private String id;
     private String name;
+    private String content;
     private KnowledgeAreaDTO knowledgeAreaDto;
 
     public SubjectDTO() {
@@ -30,5 +31,13 @@ public class SubjectDTO {
 
     public void setKnowledgeAreaDto(KnowledgeAreaDTO knowledgeAreaDto) {
         this.knowledgeAreaDto = knowledgeAreaDto;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
