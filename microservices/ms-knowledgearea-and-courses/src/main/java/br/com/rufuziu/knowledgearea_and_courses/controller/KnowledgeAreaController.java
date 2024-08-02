@@ -2,6 +2,7 @@ package br.com.rufuziu.knowledgearea_and_courses.controller;
 
 import br.com.rufuziu.knowledgearea_and_courses.dto.EducationLevelDTO;
 import br.com.rufuziu.knowledgearea_and_courses.dto.KnowledgeAreaDTO;
+import br.com.rufuziu.knowledgearea_and_courses.services.KnowledgeAreaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/")
@@ -18,8 +21,10 @@ import org.springframework.web.bind.annotation.*;
 public class KnowledgeAreaController {
 
     private final Logger log = LoggerFactory.getLogger(KnowledgeAreaController.class);
+    private final KnowledgeAreaService knowledgeAreaService;
 
-    public KnowledgeAreaController() {
+    public KnowledgeAreaController(KnowledgeAreaService knowledgeAreaService) {
+        this.knowledgeAreaService = knowledgeAreaService;
     }
 
     @PostMapping("v1/knowledge-area/create")
@@ -36,14 +41,21 @@ public class KnowledgeAreaController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> readKnowledgeArea(HttpServletRequest request) {
 
-            return ResponseEntity.ok("Ok");
+        return ResponseEntity.ok("Ok");
+    }
+
+    @GetMapping("v1/knowledge-area/readAll")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<KnowledgeAreaDTO>> readAllKnowledgeAreas(HttpServletRequest request) {
+        return ResponseEntity.ok(knowledgeAreaService.getAllKnowledgeAreas());
     }
 
     @PutMapping("v1/knowledge-area/update")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> updateKnowledgeArea(HttpServletRequest request,
-                                                     @RequestBody KnowledgeAreaDTO knowledgeAreaDto) {
+                                                      @RequestBody KnowledgeAreaDTO knowledgeAreaDto) {
 
         return ResponseEntity.ok("Ok");
     }
@@ -52,7 +64,7 @@ public class KnowledgeAreaController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteKnowledgeArea(HttpServletRequest request,
-                                                       @RequestBody KnowledgeAreaDTO knowledgeAreaDto) {
+                                                      @RequestBody KnowledgeAreaDTO knowledgeAreaDto) {
 
         return ResponseEntity.ok("Ok");
     }

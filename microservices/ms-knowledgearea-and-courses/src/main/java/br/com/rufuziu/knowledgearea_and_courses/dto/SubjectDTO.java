@@ -4,7 +4,7 @@ public class SubjectDTO {
     private String id;
     private String name;
     private String content;
-    private KnowledgeAreaDTO knowledgeAreaDto;
+    private KnowledgeAreaDTO knowledgeArea;
 
     public SubjectDTO() {
     }
@@ -25,12 +25,12 @@ public class SubjectDTO {
         this.name = name;
     }
 
-    public KnowledgeAreaDTO getKnowledgeAreaDto() {
-        return knowledgeAreaDto;
+    public KnowledgeAreaDTO getKnowledgeArea() {
+        return knowledgeArea;
     }
 
-    public void setKnowledgeAreaDto(KnowledgeAreaDTO knowledgeAreaDto) {
-        this.knowledgeAreaDto = knowledgeAreaDto;
+    public void setKnowledgeArea(KnowledgeAreaDTO knowledgeArea) {
+        this.knowledgeArea = knowledgeArea;
     }
 
     public String getContent() {

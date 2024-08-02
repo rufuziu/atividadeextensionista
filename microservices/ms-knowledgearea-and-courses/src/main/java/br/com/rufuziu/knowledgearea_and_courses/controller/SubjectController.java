@@ -1,6 +1,7 @@
 package br.com.rufuziu.knowledgearea_and_courses.controller;
 
 import br.com.rufuziu.knowledgearea_and_courses.dto.SubjectDTO;
+import br.com.rufuziu.knowledgearea_and_courses.services.SubjectService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/")
@@ -17,8 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class SubjectController {
 
     private final Logger log = LoggerFactory.getLogger(SubjectController.class);
-
-    public SubjectController() {
+    private final SubjectService subjectService;
+    public SubjectController(SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
     @PostMapping("v1/subject/create")
@@ -36,6 +40,13 @@ public class SubjectController {
     public ResponseEntity<String> readSubject(HttpServletRequest request) {
 
             return ResponseEntity.ok("Ok");
+    }
+
+    @GetMapping("v1/subject/readAll")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<SubjectDTO>> readAllSubjects(HttpServletRequest request) {
+        return ResponseEntity.ok(subjectService.getAllSubjects());
     }
 
     @PutMapping("v1/subject/update")
