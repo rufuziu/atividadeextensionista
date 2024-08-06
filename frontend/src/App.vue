@@ -10,7 +10,7 @@
         </q-toolbar-title>
 
 
-          <q-input  dense class="q-mx-lg" style="width:500px;  background-color: #f5f5dc" label="Pesquisar"  v-model=text>
+          <q-input filled dense class="q-mx-lg" style="width:500px;  background-color: #f5f5dc" label="Pesquisar"  v-model=text>
             <template v-slot:append>
               <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
               <q-icon name="search" @click="this.$router.push('/questions')" class="cursor-pointer" />
@@ -74,10 +74,10 @@
         </q-card-section>
 
         <q-card-section class="q-mt-xl q-gutter-xs" v-else>
-          <q-input style="background-color: #f5f5dc;" class="full-width" label="E-mail" />
-          <q-input style="background-color: #f5f5dc;" class="full-width" label="Senha" />
-          <q-btn label="Logar" style="background-color: #d3d3d3;" class="full-width q-mt-sm text-black" @click="logged = true" />
-          <q-btn label="Criar uma conta" style="background-color: #add8e6" class="full-width q-mt-sm text-black" @click="logged = true" />
+          <q-input style="background-color: #f5f5dc;" class="full-width" label="E-mail" v-model="user.email"/>
+          <q-input style="background-color: #f5f5dc;" class="full-width" label="Senha" v-model="user.password" />
+          <q-btn label="Logar" style="background-color: #d3d3d3;" class="full-width q-mt-sm text-black" @click="authUser(user)" />
+          <q-btn label="Criar uma conta" style="background-color: #add8e6" class="full-width q-mt-sm text-black" @click="this.$router.push('/register')" />
           <q-btn label="Esqueci a senha" style="color: #98ff98;" flat class="full-width q-mt-sm" />
         </q-card-section>
       </q-card>
@@ -93,11 +93,29 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import router from './router';
+import AuthService from './services/AuthService';
 
 const leftDrawerOpen = ref(false)
 const rightDrawerOpen = ref(false)
 const text = ref("")
 let logged = ref(false)
+
+let user = ref({
+  email: '',
+  password: '',
+  token: ''
+})
+
+const authUser = async (user) =>{
+  AuthService.authUser(user)
+  .then(response=>{
+    console.log(response)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+}
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value

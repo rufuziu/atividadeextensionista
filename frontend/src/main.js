@@ -5,7 +5,6 @@ import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
-app.component('Dialog',Dialog)
 
 app.use(router).use(Quasar)
 
