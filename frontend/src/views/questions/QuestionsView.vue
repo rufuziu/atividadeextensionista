@@ -6,7 +6,7 @@ let dialogVar = ref('')
 
 </script>
 <template>
-  <main>
+  <main style="background-color: #f5f5dc; height: 100vh">
     <div id="header" class="flex items-center justify-around">
 
       <Dialog :dialogStatus="dialogStatus" :dialogVar="dialogVar" @closeDialog="dialogStatus = false" />

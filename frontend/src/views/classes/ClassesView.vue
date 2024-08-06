@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <main style="background-color: #f5f5dc; height: 100vh;">
 
-    <div id="header" class="flex items-center justify-around">
+    <div id="header" class="flex items-center justify-around q-pa-md">
       <h3>Lições</h3>
     </div>
     <div id="content" class="q-pa-md row items-start justify-center q-gutter-md">
@@ -64,7 +64,7 @@
 
         <q-card-actions align="center">
           <q-btn flat
-            @click="this.$router.push({ name: 'lessons course', params: { course: 'portugues' } })">português</q-btn>
+            @click="this.$router.push({ name: 'classes course', params: { course: 'portugues' } })">português</q-btn>
           <q-btn flat>literatura</q-btn>
           <q-btn flat>espanhol</q-btn>
           <q-btn flat>ingles</q-btn>

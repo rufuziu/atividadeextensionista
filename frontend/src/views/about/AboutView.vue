@@ -1,5 +1,5 @@
 <template>
-  <main class="full-height">
+  <main style="background-color: #f5f5dc;" class="full-height">
     <div class="about full-height q-mx-xl">
       <h1>Projeto da Atividade Extensionista</h1>
       <p>Esse é um projeto para realização da atividade extensionista do curso de bacharelado

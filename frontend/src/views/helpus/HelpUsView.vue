@@ -1,5 +1,5 @@
 <template>
-  <main class="full-height">
+  <main style="background-color: #f5f5dc;" class="full-height">
     <div class="helpus full-height q-mx-xl">
       <h1>Ajude a Causa</h1>
       <p>Esse é um projeto filantrópico com objetivo de ajudar todos aqueles que desejam estudar,

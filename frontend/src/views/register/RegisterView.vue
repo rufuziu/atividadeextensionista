@@ -1,5 +1,5 @@
 <template>
-    <main class="full-height flex q-gutter-x-md">
+    <main style="background-color: #f5f5dc;" class="full-height flex q-gutter-x-md">
         <div id="info" class="text-center" style="width: 40%;">
             <h4>Junte-se à comunidade</h4>
             <h5>Reforço Ensino Básico WEB</h5>
@@ -18,7 +18,7 @@
             <q-input v-model="user.cpwd.value" type="password" label="Confirmação de Senha" />
             <q-radio v-model="user.role.value" val="0">Estudante</q-radio>
             <q-radio v-model="user.role.value" val="1">Professor</q-radio>
-            <q-btn label="Registar" style="width: 100%;" class="q-mt-sm text-black" color="orange"
+            <q-btn label="Registar" style="background-color: #add8e6;" class="full-width q-mt-sm text-black"
                 @click="clog(user)" />
         </div>
     </main>

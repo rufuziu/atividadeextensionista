@@ -1,8 +1,8 @@
 <template>
-    <main class="full-height flex justify-center items-center q-gutter-y-md">
+    <main style="background-color: #f5f5dc;" class="full-height flex justify-center items-center q-gutter-y-md">
         <div id="info-form" class="flex q-gutter-x-lg justify-around">
             <div class="form-img">
-                <q-avatar style="width:200px; height: 200px; cursor:pointer" color="orange" text-color="white"
+                <q-avatar style="background-color: #98ff98; width:200px; height: 200px; cursor:pointer" text-color="white"
                     icon="account_circle" @click="openFileSelect()"/>
                 <q-file class="img-user invisible" v-model="file" label="Standard" />
             </div>
@@ -15,7 +15,7 @@
                 <q-radio disable v-model="user.role.value" val="0">Estudante</q-radio>
                 <q-radio disable v-model="user.role.value" val="1">Professor</q-radio>
             </div>
-            <q-btn label="Atualizar" style="width: 100%;" class="q-mt-sm text-black" color="orange" @click="clog(user)" />
+            <q-btn label="Atualizar" style="background-color: #98ff98; width: 100%;" class="q-mt-sm text-black" @click="clog(user)" />
         </div>
     </main>
 </template>

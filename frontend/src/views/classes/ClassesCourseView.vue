@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div id="header" class="flex items-center justify-around">
+  <main style="background-color: #f5f5dc; height: 100vh;">
+    <div id="header" class="flex items-center justify-around q-pa-md">
       <h3>Lições da matéria de {{ this.$route.params.course }}</h3>
     </div>
     <div id="content" class="flex justify-center q-mx-lg q-gutter-x-md">

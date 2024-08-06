@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main style="background-color: #f5f5dc; height: 100vh;">
     <div id="header" class="flex items-center justify-around">
       <h3>Exercícios da matéria de {{ this.$route.params.course }}</h3>
     </div>

@@ -9,14 +9,15 @@
           Reforço Online
         </q-toolbar-title>
 
-        <q-input outlined dense class="q-mx-lg" style="width:500px; background-color: #f5f5dc;" label="Pesquisar"  v-model=text>
-          <template v-slot:append>
-            <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-            <q-icon name="search" @click="this.$router.push('/questions')" class="cursor-pointer" />
-          </template>
-        </q-input>
 
-        <q-avatar style="background-color: #add8e6;" text-color="white" icon="account_circle" @click="toggleRightDrawer" />
+          <q-input  dense class="q-mx-lg" style="width:500px;  background-color: #f5f5dc" label="Pesquisar"  v-model=text>
+            <template v-slot:append>
+              <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
+              <q-icon name="search" @click="this.$router.push('/questions')" class="cursor-pointer" />
+            </template>
+          </q-input>
+
+        <q-avatar style="background-color: #98ff98;" text-color="white" icon="account_circle" @click="toggleRightDrawer" />
 
       </q-toolbar>
     </q-header>
@@ -27,17 +28,14 @@
         <RouterLink to="/" class="rlink">
           <p>Home</p>
         </RouterLink>
-        <RouterLink to="/register" class="rlink">
-          <p>Registre-se</p>
-        </RouterLink>
-        <RouterLink to="/lessons" class="rlink">
-          <p>Lições</p>
-        </RouterLink>
-        <RouterLink to="/questions" class="rlink">
-          <p>Dúvidas</p>
+        <RouterLink to="/classes" class="rlink">
+          <p>Aulas</p>
         </RouterLink>
         <RouterLink to="/exercises" class="rlink">
           <p>Exercícios</p>
+        </RouterLink>
+        <RouterLink to="/questions" class="rlink">
+          <p>Dúvidas</p>
         </RouterLink>
         <RouterLink to="/about" class="rlink">
           <p>Sobre</p>
@@ -55,7 +53,7 @@
         <q-card-section v-if="logged">
 
           <div id="user-info" class="flex items-center q-gutter-x-md q-my-sm">
-            <q-avatar color="orange" text-color="white" icon="account_circle" />
+            <q-avatar style="background-color: #98ff98;" text-color="white" icon="account_circle" />
             <p>Usuário</p>
           </div>
 
@@ -79,6 +77,7 @@
           <q-input style="background-color: #f5f5dc;" class="full-width" label="E-mail" />
           <q-input style="background-color: #f5f5dc;" class="full-width" label="Senha" />
           <q-btn label="Logar" style="background-color: #d3d3d3;" class="full-width q-mt-sm text-black" @click="logged = true" />
+          <q-btn label="Criar uma conta" style="background-color: #add8e6" class="full-width q-mt-sm text-black" @click="logged = true" />
           <q-btn label="Esqueci a senha" style="color: #98ff98;" flat class="full-width q-mt-sm" />
         </q-card-section>
       </q-card>
