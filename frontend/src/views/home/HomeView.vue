@@ -1,12 +1,12 @@
 <template>
-  <main>
-    <header align="right" class="q-px-lg q-py-sm q-gutter-x-md">
-      <q-btn label="Registre-se" color="orange" class="text-black" @click="this.$router.push({ name: 'register' })" />
+  <main class="q-px-lg q-py-xl q-gutter-x-md" style="background-color: #f5f5dc; height: 100vh;">
+    <!-- <header align="right" class="q-px-lg q-py-sm q-gutter-x-md">
+      <q-btn label="Registre-se"  style="background-color: #98ff98;" @click="this.$router.push({ name: 'register' })" />
       <q-btn label="Já tenho uma conta" flat class="text-black" @click="this.$emit('openRightDrawer')" />
-    </header>
+    </header> -->
 
     <body>
-      <h4 class="text-center">Reforço Ensino Básico Web</h4>
+      <h4 class="text-center">Reforço Online</h4>
       
       <div id="metrics">
         <div class="flex justify-center items-center q-gutter-x-md">
@@ -48,7 +48,7 @@
       </div>
 
       <div class="q-my-xl q-mx-xl">
-        <p class="text-center" style="font-size: 28px;">O Reforço Ensino Básico Web é um recurso extra de estudo voltado para ajudar estudantes, e professores em suas atividades.</p>
+        <p class="text-center" style="font-size: 28px;">O Reforço Online é um recurso extra de estudo voltado para ajudar estudantes e professores em suas atividades.</p>
       </div>
     </body>
   </main>

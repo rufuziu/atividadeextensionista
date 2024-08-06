@@ -1,27 +1,27 @@
 <template>
-  <q-layout view="hHh LpR fff">
+  <q-layout view="hHh LpR fff" >
 
-    <q-header bordered class="bg-white text-grey-8">
+    <q-header bordered style="background-color: #003366; color: #f5f5dc;">
       <q-toolbar>
         <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          Reforço Ensino Básico Web
+          Reforço Online
         </q-toolbar-title>
 
-        <q-input rounded outlined dense class="q-mx-lg" style="width:500px;" label="Pesquisar" v-model=text>
+        <q-input outlined dense class="q-mx-lg" style="width:500px; background-color: #f5f5dc;" label="Pesquisar"  v-model=text>
           <template v-slot:append>
             <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
             <q-icon name="search" @click="this.$router.push('/questions')" class="cursor-pointer" />
           </template>
         </q-input>
 
-        <q-avatar color="orange" text-color="white" icon="account_circle" @click="toggleRightDrawer" />
+        <q-avatar style="background-color: #add8e6;" text-color="white" icon="account_circle" @click="toggleRightDrawer" />
 
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" class="text-grey-8" side="left" behavior="desktop" overlay bordered>
+    <q-drawer v-model="leftDrawerOpen" style="background-color: #003366; color:#f5f5dc" side="left" behavior="desktop" overlay bordered>
       <!-- drawer content -->
       <div class="q-ml-md q-mt-sm">
         <RouterLink to="/" class="rlink">
@@ -48,10 +48,10 @@
       </div>
     </q-drawer>
 
-    <q-drawer v-model="rightDrawerOpen" side="right" behavior="desktop" overlay bordered class="window-height">
+    <q-drawer v-model="rightDrawerOpen" style="background-color: #003366; color:#f5f5dc;" side="right" behavior="desktop" overlay bordered class="window-height">
       <!-- drawer content -->
-      <q-card id="logged-menu" class="window-height" flat>
-        <q-btn label="X" :ripple="false" flat color="grey-6" @click="rightDrawerOpen = false" />
+      <q-card id="logged-menu" style="background-color: #003366; color:#f5f5dc;" class="window-height" flat>
+        <q-btn label="X" :ripple="false" flat style="color: #f5f5dc;" @click="rightDrawerOpen = false" />
         <q-card-section v-if="logged">
 
           <div id="user-info" class="flex items-center q-gutter-x-md q-my-sm">
@@ -75,16 +75,16 @@
 
         </q-card-section>
 
-        <q-card-section class="q-mt-xl" v-else>
-          <q-input label="E-mail" />
-          <q-input label="Senha" />
-          <q-btn label="Logar" class="full-width q-mt-sm bg-orange text-black" @click="logged = true" />
-          <q-btn label="Esqueci a senha" flat class="full-width q-mt-sm text-orange" />
+        <q-card-section class="q-mt-xl q-gutter-xs" v-else>
+          <q-input style="background-color: #f5f5dc;" class="full-width" label="E-mail" />
+          <q-input style="background-color: #f5f5dc;" class="full-width" label="Senha" />
+          <q-btn label="Logar" style="background-color: #d3d3d3;" class="full-width q-mt-sm text-black" @click="logged = true" />
+          <q-btn label="Esqueci a senha" style="color: #98ff98;" flat class="full-width q-mt-sm" />
         </q-card-section>
       </q-card>
     </q-drawer>
 
-    <q-page-container class="window-height">
+    <q-page-container class="window-height" style="margin:0; padding:0;">
       <router-view @openRightDrawer="rightDrawerOpen = true" />
     </q-page-container>
 
@@ -110,11 +110,11 @@ function toggleRightDrawer() {
 
 <style>
 .rlink {
-  color: black;
+  color: #f5f5dc;
   text-decoration: none;
 }
 
 .rlink:hover {
-  color: orange;
+  color: #add8e6;
 }
 </style>

@@ -1,0 +1,25 @@
+spring:
+  application:
+    jwt:
+      cookie:
+        name: token
+      expiration:
+        ms: 10800000
+      secret: 0123456789012345678901234567890123456789012345678901234567890123
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/reforco-users
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  file:
+    name: ./logs/crud_users_and_auth.log
+
+server:
+  port: 8082
