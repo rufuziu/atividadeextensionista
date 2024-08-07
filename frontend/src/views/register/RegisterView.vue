@@ -93,7 +93,6 @@ const registerUser = async (user) => {
     await RegisterService.registerUser(user)
         .then(response => {
             console.log(response)
-            console.log(response.status)
             switch (response.status) {
                 case 201:
                     message.value.title = 'Sucesso!'

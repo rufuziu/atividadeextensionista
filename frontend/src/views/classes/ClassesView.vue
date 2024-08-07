@@ -2,7 +2,7 @@
   <main style="background-color: #f5f5dc; height: 100vh;">
 
     <div id="header" class="flex items-center justify-around q-pa-md">
-      <h3>Lições</h3>
+      <h3>Aulas</h3>
     </div>
     <div id="content" class="q-pa-md row items-start justify-center q-gutter-md">
 
