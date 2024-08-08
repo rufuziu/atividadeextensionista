@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtUtils jwtUtils;
 
-    public SecurityConfig( JwtUtils jwtUtils) {
+    public SecurityConfig(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
 
@@ -37,7 +37,13 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/h2/**")
+                        auth.requestMatchers("/v3/api-docs/**",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**",
+                                        "/actuator/**")
                                 .permitAll())
                 .headers(h -> h.frameOptions(f -> f.sameOrigin()));
 
@@ -47,16 +53,12 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
-                                        "/v3/api-docs/**",
-                                        "/configuration/ui",
-                                        "/swagger-resources/**",
-                                        "/configuration/security",
-                                        "/swagger-ui/**",
-                                        "/webjars/**",
-                                        "/actuator/**",
-                                        "/api/test/v1/**",
-                                        "/api/v1/register/**",
-                                        "/api/v1/auth/**")
+                                        "/api/v1/education-level/readAll",
+                                        "/api/v1/knowledge-area/readAll",
+                                        "/api/v1/knowledge-area/readByEducationLevel/**",
+                                        "/api/v1/subject/readAll",
+                                        "/api/v1/subject/readByKnowledgeArea/**"
+                                )
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated());

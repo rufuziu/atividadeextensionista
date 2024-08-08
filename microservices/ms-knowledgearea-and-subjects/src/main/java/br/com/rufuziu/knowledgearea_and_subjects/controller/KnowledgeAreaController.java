@@ -43,9 +43,18 @@ public class KnowledgeAreaController {
         return ResponseEntity.ok("Ok");
     }
 
+    @GetMapping("v1/knowledge-area/readByEducationLevel/{educationLevelId}")
+//    @SecurityRequirement(name = "Bearer Authentication")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<KnowledgeAreaDTO>> readKnowledgeAreasByEducationLevelId(
+            HttpServletRequest request,
+            @PathVariable String educationLevelId) {
+        return ResponseEntity.ok(knowledgeAreaService.getKnowledgeAreasByEducationLevelId(educationLevelId));
+    }
+
     @GetMapping("v1/knowledge-area/readAll")
-    @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @SecurityRequirement(name = "Bearer Authentication")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<KnowledgeAreaDTO>> readAllKnowledgeAreas(HttpServletRequest request) {
         return ResponseEntity.ok(knowledgeAreaService.getAllKnowledgeAreas());
     }

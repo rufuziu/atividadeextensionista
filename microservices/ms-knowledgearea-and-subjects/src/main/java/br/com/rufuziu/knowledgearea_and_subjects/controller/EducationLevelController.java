@@ -44,8 +44,8 @@ public class EducationLevelController {
     }
 
     @GetMapping("v1/education-level/readAll")
-    @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @SecurityRequirement(name = "Bearer Authentication")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<EducationLevelDTO>> readAllEducationLevels(HttpServletRequest request) {
         return ResponseEntity.ok(educationLevelService.getAllEducationLevels());
     }

@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,13 +23,32 @@ public class MongoDataInitializer {
         this.mongoTemplate = mongoTemplate;
     }
 
-    private List<EducationLevel> educationLevelsToCheck = Arrays.asList(new EducationLevel("Ensino Fundamental - Anos Iniciais"), new EducationLevel("Ensino Fundamental - Anos Finais"), new EducationLevel("Ensino Médio"));
+    private List<EducationLevel> educationLevelsToCheck = Arrays.asList(
+            new EducationLevel("Ensino Fundamental - Anos Iniciais"),
+            new EducationLevel("Ensino Fundamental - Anos Finais"),
+            new EducationLevel("Ensino Médio"));
 
-    private List<KnowledgeArea> generalKnowledgeAreaToCheck = Arrays.asList(new KnowledgeArea("Língua Portuguesa"), new KnowledgeArea("Matemática"), new KnowledgeArea("Educação Física"), new KnowledgeArea("Artes"));
+    private List<KnowledgeArea> generalKnowledgeAreaToCheck = Arrays.asList(
+            new KnowledgeArea("Língua Portuguesa"),
+            new KnowledgeArea("Matemática"),
+            new KnowledgeArea("Educação Física"),
+            new KnowledgeArea("Artes"));
 
-    private List<KnowledgeArea> specificOneKnowledgeAreaToCheck = Arrays.asList(new KnowledgeArea("Ciências"), new KnowledgeArea("História"), new KnowledgeArea("Geografia"), new KnowledgeArea("Ensino Religioso"));
+    private List<KnowledgeArea> specificOneKnowledgeAreaToCheck = Arrays.asList(
+            new KnowledgeArea("Ciências"),
+            new KnowledgeArea("História"),
+            new KnowledgeArea("Geografia"),
+            new KnowledgeArea("Ensino Religioso"));
 
-    private List<KnowledgeArea> specificTwoKnowledgeAreaToCheck = Arrays.asList(new KnowledgeArea("Ciências da Natureza"), new KnowledgeArea("Ciências Humanas"), new KnowledgeArea("Língua Estrangeira"));
+    private List<KnowledgeArea> specificTwoKnowledgeAreaToCheck = Arrays.asList(
+            new KnowledgeArea("Ciências da Natureza"),
+            new KnowledgeArea("Ciências Humanas"),
+            new KnowledgeArea("Língua Estrangeira"));
+
+    private List<KnowledgeArea> gradeEnsinoFundamentalAnosIniciais = new ArrayList<>();
+    private List<KnowledgeArea> gradeEnsinoFundamentalAnosFinais = new ArrayList<>();
+    private List<KnowledgeArea> gradeEnsinoMedio = new ArrayList<>();
+
 
     // Ensino Fundamental
     // 0 - Lingua Porgutuesa
@@ -144,8 +164,8 @@ public class MongoDataInitializer {
         return mongoTemplate.find(query, Subject.class).isEmpty();
     }
 
-
     private void createSubject(List<Subject> subjectToCheck, KnowledgeArea knowledgeArea, EducationLevel educationLevel) {
+
         for (Subject subject : subjectToCheck) {
             subject.setId(null);
             if (isSubjectUnique(subject, knowledgeArea, educationLevel)
@@ -155,6 +175,14 @@ public class MongoDataInitializer {
                 mongoTemplate.save(subject);
             }
         }
+    }
+
+    private KnowledgeArea createKnowledgeArea(KnowledgeArea knowledgeArea){
+        KnowledgeArea model = new KnowledgeArea();
+        model.setId(knowledgeArea.getId());
+        model.setName(knowledgeArea.getName());
+        model.setEducationLevel(knowledgeArea.getEducationLevel());
+        return model;
     }
 
     @PostConstruct
@@ -175,18 +203,21 @@ public class MongoDataInitializer {
                     && educationLevelsToCheck.get(0).getId() != null) {
                 generalKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(0));
                 mongoTemplate.save(generalKnowledgeArea);
+                gradeEnsinoFundamentalAnosIniciais.add(createKnowledgeArea(generalKnowledgeArea));
             }
             generalKnowledgeArea.setId(null);
             if (isKnowledgeAreaUnique(generalKnowledgeArea, educationLevelsToCheck.get(1))
                     && educationLevelsToCheck.get(1).getId() != null) {
                 generalKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(1));
                 mongoTemplate.save(generalKnowledgeArea);
+                gradeEnsinoFundamentalAnosFinais.add(createKnowledgeArea(generalKnowledgeArea));
             }
             generalKnowledgeArea.setId(null);
             if (isKnowledgeAreaUnique(generalKnowledgeArea, educationLevelsToCheck.get(2))
                     && educationLevelsToCheck.get(2).getId() != null) {
                 generalKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(2));
                 mongoTemplate.save(generalKnowledgeArea);
+                gradeEnsinoMedio.add(createKnowledgeArea(generalKnowledgeArea));
             }
         }
 
@@ -196,12 +227,14 @@ public class MongoDataInitializer {
                     && educationLevelsToCheck.get(0).getId() != null) {
                 specificOneKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(0));
                 mongoTemplate.save(specificOneKnowledgeArea);
+                gradeEnsinoFundamentalAnosIniciais.add(createKnowledgeArea(specificOneKnowledgeArea));
             }
             specificOneKnowledgeArea.setId(null);
             if (isKnowledgeAreaUnique(specificOneKnowledgeArea, educationLevelsToCheck.get(1))
                     && educationLevelsToCheck.get(1).getId() != null) {
                 specificOneKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(1));
                 mongoTemplate.save(specificOneKnowledgeArea);
+                gradeEnsinoFundamentalAnosFinais.add(createKnowledgeArea(specificOneKnowledgeArea));
             }
         }
 
@@ -211,60 +244,61 @@ public class MongoDataInitializer {
                     && educationLevelsToCheck.get(2).getId() != null) {
                 specificTwoKnowledgeArea.setEducationLevel(educationLevelsToCheck.get(2));
                 mongoTemplate.save(specificTwoKnowledgeArea);
+                gradeEnsinoMedio.add(createKnowledgeArea(specificTwoKnowledgeArea));
             }
         }
 
         //3 - INSERT SUBJECTS
         //2.1 - Ensino Fundamental
         //Lingua Portuguesa
-        createSubject(subject0ToCheck, generalKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(0));
-        createSubject(subject0ToCheck, generalKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(1));
+        createSubject(subject0ToCheck, gradeEnsinoFundamentalAnosIniciais.get(0), educationLevelsToCheck.get(0));
+        createSubject(subject0ToCheck, gradeEnsinoFundamentalAnosFinais.get(0), educationLevelsToCheck.get(1));
         //Matemática
-        createSubject(subject1ToCheck, generalKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(0));
-        createSubject(subject1ToCheck, generalKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(1));
+        createSubject(subject1ToCheck, gradeEnsinoFundamentalAnosIniciais.get(1), educationLevelsToCheck.get(0));
+        createSubject(subject1ToCheck, gradeEnsinoFundamentalAnosFinais.get(1), educationLevelsToCheck.get(1));
         //Educação Física
-        createSubject(subject2ToCheck, generalKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(0));
-        createSubject(subject2ToCheck, generalKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(1));
+        createSubject(subject2ToCheck, gradeEnsinoFundamentalAnosIniciais.get(2), educationLevelsToCheck.get(0));
+        createSubject(subject2ToCheck, gradeEnsinoFundamentalAnosFinais.get(2), educationLevelsToCheck.get(1));
         //Artes
-        createSubject(subject3ToCheck, generalKnowledgeAreaToCheck.get(3), educationLevelsToCheck.get(0));
-        createSubject(subject3ToCheck, generalKnowledgeAreaToCheck.get(3), educationLevelsToCheck.get(1));
+        createSubject(subject3ToCheck, gradeEnsinoFundamentalAnosIniciais.get(3), educationLevelsToCheck.get(0));
+        createSubject(subject3ToCheck, gradeEnsinoFundamentalAnosFinais.get(3), educationLevelsToCheck.get(1));
         //Ciências
-        createSubject(subject4ToCheck, specificOneKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(0));
-        createSubject(subject4ToCheck, specificOneKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(1));
+        createSubject(subject4ToCheck, gradeEnsinoFundamentalAnosIniciais.get(4), educationLevelsToCheck.get(0));
+        createSubject(subject4ToCheck, gradeEnsinoFundamentalAnosFinais.get(4), educationLevelsToCheck.get(1));
         //História
-        createSubject(subject5ToCheck, specificOneKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(0));
-        createSubject(subject5ToCheck, specificOneKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(1));
+        createSubject(subject5ToCheck, gradeEnsinoFundamentalAnosIniciais.get(5), educationLevelsToCheck.get(0));
+        createSubject(subject5ToCheck, gradeEnsinoFundamentalAnosFinais.get(5), educationLevelsToCheck.get(1));
         //Geografia
-        createSubject(subject6ToCheck, specificOneKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(0));
-        createSubject(subject6ToCheck, specificOneKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(1));
+        createSubject(subject6ToCheck, gradeEnsinoFundamentalAnosIniciais.get(6), educationLevelsToCheck.get(0));
+        createSubject(subject6ToCheck, gradeEnsinoFundamentalAnosFinais.get(6), educationLevelsToCheck.get(1));
         //Ensino Religioso
-        createSubject(subject7ToCheck, specificOneKnowledgeAreaToCheck.get(3), educationLevelsToCheck.get(0));
-        createSubject(subject7ToCheck, specificOneKnowledgeAreaToCheck.get(3), educationLevelsToCheck.get(1));
+        createSubject(subject7ToCheck, gradeEnsinoFundamentalAnosIniciais.get(7), educationLevelsToCheck.get(0));
+        createSubject(subject7ToCheck, gradeEnsinoFundamentalAnosFinais.get(7), educationLevelsToCheck.get(1));
 
         //Ensino Médio
-        createSubject(subject8ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject9ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject10ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject11ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject12ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject13ToCheck, specificTwoKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
+        createSubject(subject8ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
+        createSubject(subject9ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
+        createSubject(subject10ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
+        createSubject(subject11ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
+        createSubject(subject12ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
+        createSubject(subject13ToCheck, gradeEnsinoMedio.get(4), educationLevelsToCheck.get(2));
 
-        createSubject(subject14ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject15ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject16ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject17ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject18ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject19ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject20ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject21ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject22ToCheck, specificTwoKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
+        createSubject(subject14ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject15ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject16ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject17ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject18ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject19ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject20ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject21ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
+        createSubject(subject22ToCheck, gradeEnsinoMedio.get(5), educationLevelsToCheck.get(2));
 
-        createSubject(subject23ToCheck, specificTwoKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(2));
+        createSubject(subject23ToCheck, gradeEnsinoMedio.get(6), educationLevelsToCheck.get(2));
 
-        createSubject(subject24ToCheck, generalKnowledgeAreaToCheck.get(0), educationLevelsToCheck.get(2));
-        createSubject(subject25ToCheck, generalKnowledgeAreaToCheck.get(1), educationLevelsToCheck.get(2));
-        createSubject(subject26ToCheck, generalKnowledgeAreaToCheck.get(2), educationLevelsToCheck.get(2));
-        createSubject(subject27ToCheck, generalKnowledgeAreaToCheck.get(3), educationLevelsToCheck.get(2));
+        createSubject(subject24ToCheck, gradeEnsinoMedio.get(0), educationLevelsToCheck.get(2));
+        createSubject(subject25ToCheck, gradeEnsinoMedio.get(1), educationLevelsToCheck.get(2));
+        createSubject(subject26ToCheck, gradeEnsinoMedio.get(2), educationLevelsToCheck.get(2));
+        createSubject(subject27ToCheck, gradeEnsinoMedio.get(3), educationLevelsToCheck.get(2));
 
     }
 }

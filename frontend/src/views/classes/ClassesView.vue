@@ -1,96 +1,178 @@
+<script setup>
+import { onMounted, ref } from "vue"
+import EducationLevelService from "../../services/EducationLevelService";
+import KnowledgeAreaService from "../../services/KnowledgeAreaService";
+import SubjectService from "../../services/SubjectService";
+
+let educationLevels = ref([])
+let educationLevelId = ref('')
+let knowledgeAreas = ref([])
+let knowledgeAreaId = ref('')
+let subjects = ref([])
+let subjectId = ref('')
+let dialogStatus = ref(false)
+let dialogVar = ref('')
+
+
+const readKnowledgeAreaByEducationLevelId = async (id) => {
+  await KnowledgeAreaService.readByEducationLevelId(id)
+    .then(response => {
+      switch (response.status) {
+        case 200:
+          console.log(response)
+          knowledgeAreas.value = response.data;
+          break;
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+const readSubjectsByKnowledgeAreaId = async (id) => {
+  await SubjectService.readByKnowledgeAreaId(id)
+    .then(response => {
+      switch (response.status) {
+        case 200:
+          console.log(response)
+          subjects.value = response.data;
+          break;
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+onMounted(async () => {
+  await EducationLevelService.readAll()
+    .then(response => {
+      switch (response.status) {
+        case 200:
+          console.log(response)
+          educationLevels.value = response.data;
+          break;
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    })
+})
+
+</script>
 <template>
-  <main style="background-color: #f5f5dc; height: 100vh;">
-
-    <div id="header" class="flex items-center justify-around q-pa-md">
-      <h3>Aulas</h3>
+  <main style="background-color: #f5f5dc; margin:0; padding:0; box-sizing: border-box;" class="window-height">
+    <div id="header" class="flex items-center justify-around">
+      <h4>Aulas</h4>
     </div>
-    <div id="content" class="q-pa-md row items-start justify-center q-gutter-md">
+    <div id="content" class="row justify-center items-start items-start q-gutter-x-lg">
+      <div id="filters" class="row col-3 items-start">
+        <q-card id="filter-card" class="full-width">
+          <q-card-section>
+            <p>Escolariedade</p>
+            <q-select filled dense :options="educationLevels" option-label="name" option-value="id" emit-value
+              map-options v-model="educationLevelId"
+              @update:model-value="readKnowledgeAreaByEducationLevelId(educationLevelId)"
+              label="Selecione uma escolariedade..." />
+          </q-card-section>
+          <q-separator inset />
+          <q-card-section>
+            <p>Área de conhecimento</p>
+            <q-select filled dense :options="knowledgeAreas" option-label="name" option-value="id" emit-value
+              map-options v-model="knowledgeAreaId" @update:model-value="readSubjectsByKnowledgeAreaId(knowledgeAreaId)"
+              label="Selecione uma área de conhecimento..." />
+          </q-card-section>
+          <q-separator inset />
+          <q-card-section>
+            <p>Matéria</p>
+            <q-select filled dense :options="subjects" option-label="content" option-value="id" emit-value map-options
+              v-model="subjectId" label="Selecione uma matéria...">
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps">
+                  <q-item-section>
+                    <q-item-label>{{ scope.opt.name }} - {{ scope.opt.content }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+          </q-card-section>
+          <q-card-actions class="justify-end">
+            <q-btn style="background-color:#003366; color:white;">Filtrar</q-btn>
+          </q-card-actions>
+        </q-card>
+      </div>
+      <div id="questions" class="col-8 row">
+        <div id="col" class="col-12 q-gutter-y-md">
+          <q-card class="question" @click="() => {
+            dialogStatus = true
+            dialogVar = 'openQuestionsOrLessons'
+          }">
+            <q-item>
+              <q-item-section avatar class="items-center">
+                <q-avatar color="blue" text-color="white" icon="account_circle" />
+                <span>Estudande 1</span>
+              </q-item-section>
 
-      <!-- ciencias da natureza [biologia, química e física] -->
-      <q-card class="course">
-        <q-card-section class="bg-green text-white">
-          <div class="text-h6 text-center">Ciências da Natureza</div>
-        </q-card-section>
+              <q-item-section>
+                <q-item-label>Estou com dúvida sobre a lição de História do Brasil</q-item-label>
+                <q-item-label caption>Boa tarde, tenho uma dúvida sobre a lição História do Brasil no
+                  período...</q-item-label>
+              </q-item-section>
 
-        <q-separator />
+            </q-item>
+            <div class="q-mx-md q-gutter-x-sm text-left">
+              <q-badge rounded color="orange" label="Ciências Humanas" />
+              <q-badge rounded color="orange" label="História" />
+            </div>
+          </q-card>
+          <q-card class="question">
+            <q-item>
+              <q-item-section avatar class="items-center">
+                <q-avatar color="yellow" text-color="black" icon="account_circle" />
+                <span>Estudande 3</span>
+              </q-item-section>
 
-        <q-card-actions align="center">
-          <q-btn flat>biologia</q-btn>
-          <q-btn flat>química</q-btn>
-          <q-btn flat>física</q-btn>
-        </q-card-actions>
-      </q-card>
+              <q-item-section>
+                <q-item-label>Dúvida sobre funções polinomiais</q-item-label>
+                <q-item-label caption>Dado a função f(x) = an . xn + an – 1 . xn – 1 + ...+a2 . x2 + a1 . x +
+                  a0...</q-item-label>
+              </q-item-section>
 
+            </q-item>
+            <div class="q-mx-md q-gutter-x-sm text-left">
+              <q-badge rounded color="blue" label="Matemática e suas Tecnologias" />
+              <q-badge rounded color="blue" label="Matemática" />
+            </div>
+          </q-card>
+          <q-card class="question">
+            <q-item>
+              <q-item-section avatar class="items-center">
+                <q-avatar color="green" text-color="white" icon="account_circle" />
+                <span>Estudande 7</span>
+              </q-item-section>
 
-      <!-- ciencias humanas [história, geografia, filosofia e sociologia] -->
-      <q-card class="course">
-        <q-card-section class="bg-orange text-white">
-          <div class="text-h6 text-center">Ciências humanas</div>
-        </q-card-section>
+              <q-item-section>
+                <q-item-label>[AJUDA] Preciso de ajuda em um exercício de redação</q-item-label>
+                <q-item-label caption>Bom noite, preciso de ajuda pra como desenvolver uma redação
+                  sobre...</q-item-label>
+              </q-item-section>
 
-        <q-separator />
-
-        <q-card-actions align="center">
-          <q-btn flat>história</q-btn>
-          <q-btn flat>geografia</q-btn>
-          <q-btn flat>filosofia</q-btn>
-          <q-btn flat>sociologia</q-btn>
-        </q-card-actions>
-      </q-card>
-
-
-      <!-- matemática e suas tecnologias [matemática]-->
-      <q-card class="course">
-        <q-card-section class="bg-blue text-white">
-          <div class="text-h6 text-center">Matemática e suas tecnologias</div>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-actions align="center">
-          <q-btn flat>matemática</q-btn>
-        </q-card-actions>
-      </q-card>
-
-      <!-- linguagens, códigos e suas tecnologias
-         [português, literatura, espanhol, inglês, educação física e artes]
-        --- -->
-      <q-card class="course">
-        <q-card-section class="bg-pink text-white">
-          <div class="text-h6 text-center">Linguagens, Códigos e suas Tecnologias</div>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-actions align="center">
-          <q-btn flat
-            @click="this.$router.push({ name: 'classes course', params: { course: 'portugues' } })">português</q-btn>
-          <q-btn flat>literatura</q-btn>
-          <q-btn flat>espanhol</q-btn>
-          <q-btn flat>ingles</q-btn>
-          <q-btn flat>educação física</q-btn>
-          <q-btn flat>artes</q-btn>
-        </q-card-actions>
-      </q-card>
-
-      
-      <!-- redação -->
-      <q-card class="course">
-        <q-card-section class="bg-red text-white">
-          <div class="text-h6 text-center">Redação</div>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-actions align="center">
-          <q-btn flat>redação</q-btn>
-        </q-card-actions>
-      </q-card>
-
+            </q-item>
+            <div class="q-mx-md q-gutter-x-sm text-left">
+              <q-badge rounded color="red" label="Redação" />
+              <q-badge rounded color="red" label="Redação" />
+            </div>
+          </q-card>
+        </div>
+      </div>
     </div>
 
   </main>
 </template>
 
-<script setup>
-</script>
+<style>
+.question:hover {
+  cursor: pointer;
+  background-color: rgba(150, 150, 150, 0.3);
+}
+</style>

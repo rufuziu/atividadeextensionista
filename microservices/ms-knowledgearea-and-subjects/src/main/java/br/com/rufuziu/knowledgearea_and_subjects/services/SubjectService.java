@@ -1,5 +1,6 @@
 package br.com.rufuziu.knowledgearea_and_subjects.services;
 
+import br.com.rufuziu.knowledgearea_and_subjects.dto.KnowledgeAreaDTO;
 import br.com.rufuziu.knowledgearea_and_subjects.dto.SubjectDTO;
 import br.com.rufuziu.knowledgearea_and_subjects.repository.SubjectRepository;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,14 @@ public class SubjectService {
     public SubjectService(ModelMapper modelMapper, SubjectRepository subjectRepository) {
         this.modelMapper = modelMapper;
         this.subjectRepository = subjectRepository;
+    }
+
+    public List<SubjectDTO> getSubjectByKnowledgeAreaId(String knowledgeAreaId) {
+        return subjectRepository.findByKnowledgeAreaId(knowledgeAreaId).stream()
+                .map(subject -> modelMapper.map(
+                        subject,
+                        SubjectDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<SubjectDTO> getAllSubjects() {

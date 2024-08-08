@@ -1,5 +1,6 @@
 package br.com.rufuziu.knowledgearea_and_subjects.controller;
 
+import br.com.rufuziu.knowledgearea_and_subjects.dto.KnowledgeAreaDTO;
 import br.com.rufuziu.knowledgearea_and_subjects.dto.SubjectDTO;
 import br.com.rufuziu.knowledgearea_and_subjects.services.SubjectService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -42,9 +43,18 @@ public class SubjectController {
             return ResponseEntity.ok("Ok");
     }
 
+    @GetMapping("v1/subject/readByKnowledgeArea/{knowledgeAreaId}")
+//    @SecurityRequirement(name = "Bearer Authentication")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<SubjectDTO>> readSubjectByKnowledgeAreasId(
+            HttpServletRequest request,
+            @PathVariable String knowledgeAreaId) {
+        return ResponseEntity.ok(subjectService.getSubjectByKnowledgeAreaId(knowledgeAreaId));
+    }
+
     @GetMapping("v1/subject/readAll")
-    @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @SecurityRequirement(name = "Bearer Authentication")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<SubjectDTO>> readAllSubjects(HttpServletRequest request) {
         return ResponseEntity.ok(subjectService.getAllSubjects());
     }

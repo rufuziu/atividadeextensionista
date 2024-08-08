@@ -18,6 +18,14 @@ public class KnowledgeAreaService {
         this.knowledgeAreaRepository = knowledgeAreaRepository;
     }
 
+    public List<KnowledgeAreaDTO> getKnowledgeAreasByEducationLevelId(String educationLevelId) {
+        return knowledgeAreaRepository.findByEducationLevelId(educationLevelId).stream()
+                .map(knowledgeArea -> modelMapper.map(
+                        knowledgeArea,
+                        KnowledgeAreaDTO.class))
+                .collect(Collectors.toList());
+    }
+
     public List<KnowledgeAreaDTO> getAllKnowledgeAreas() {
         return knowledgeAreaRepository.findAll().stream()
                 .map(knowledgeArea -> modelMapper.map(
