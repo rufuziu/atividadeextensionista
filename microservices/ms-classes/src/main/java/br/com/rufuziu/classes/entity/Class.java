@@ -13,6 +13,8 @@ public class Class {
     private String id;
     private String name;
     private String content;
+    private String educationLevelId;
+    private String knowledgeAreaId;
     private String subjectId;
 
     public Class() {
@@ -40,6 +42,22 @@ public class Class {
 
     public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
+    }
+
+    public String getEducationLevelId() {
+        return educationLevelId;
+    }
+
+    public void setEducationLevelId(String educationLevelId) {
+        this.educationLevelId = educationLevelId;
+    }
+
+    public String getKnowledgeAreaId() {
+        return knowledgeAreaId;
+    }
+
+    public void setKnowledgeAreaId(String knowledgeAreaId) {
+        this.knowledgeAreaId = knowledgeAreaId;
     }
 
     public String getContent() {
