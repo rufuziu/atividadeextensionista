@@ -19,6 +19,7 @@ public class MongoDataInitializer {
 
     private final MongoTemplate mongoTemplate;
 
+
     public MongoDataInitializer(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
@@ -28,6 +29,7 @@ public class MongoDataInitializer {
             new EducationLevel("Ensino Fundamental - Anos Finais"),
             new EducationLevel("Ensino Médio"));
 
+    /*
     private List<KnowledgeArea> generalKnowledgeAreaToCheck = Arrays.asList(
             new KnowledgeArea("Língua Portuguesa"),
             new KnowledgeArea("Matemática"),
@@ -301,4 +303,5 @@ public class MongoDataInitializer {
         createSubject(subject27ToCheck, gradeEnsinoMedio.get(3), educationLevelsToCheck.get(2));
 
     }
+     */
 }

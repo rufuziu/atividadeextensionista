@@ -1,8 +1,8 @@
 spring:
-  security:
-    user:
-      name: "teste"
-      password: "teste"
+  #security:
+  #  user:
+  #    name: "teste"
+  #    password: "teste"
 
   application:
     jwt:
@@ -13,8 +13,8 @@ spring:
       secret: 0123456789012345678901234567890123456789012345678901234567890123
 
   data:
-    mongodb:
-      uri: mongodb://localhost:27017/reforco-users
+  #  mongodb:
+  #    uri: mongodb://localhost:27017/reforco-users
 
 management:
   endpoints:
@@ -24,7 +24,4 @@ management:
 
 logging:
   file:
-    name: ./logs/crud_users_and_auth.log
-
-server:
-  port: 8083
+    name: ./logs/ms-exercises.log

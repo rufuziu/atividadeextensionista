@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27018:27017"  # Mapeia a porta 27017 do MongoDB do container para a máquina
+    environment:
+      - MONGO_INITDB_DATABASE=reforco-users
+    networks:
+      - ms_network
+
+  ms-register-and-auth:
+    build:
+      context: ./ms-register-and-auth
+    container_name: ms-register-and-auth
+    ports:
+      - "8081:8080"  # Mapeia a porta 8080 do container para a 8082 da máquina
+    environment:
+      - SPRING_PROFILES_ACTIVE=DEV
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/reforco-users
+    depends_on:
+      - mongo
+    networks:
+      - ms_network
+#
+#  ms-knowledgearea-and-subjects:
+#    build:
+#      context: ./ms-knowledgearea-and-subjects
+#    container_name: ms-knowledgearea-and-subjects
+#    ports:
+#      - "8082:8080"  # Mapeia a porta 8080 do container para a 8082 da máquina
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=DEV
+#      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/reforco-users
+#    networks:
+#      - ms_network
+#    depends_on:
+#      - mongo
+#      - ms-register-and-auth
+#
+#  ms-classes:
+#    build:
+#      context: ./ms-classes
+#    container_name: ms-classes
+#    ports:
+#      - "8083:8080"  # Mapeia a porta 8080 do container para a 8083 da máquina
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=DEV
+#      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/reforco-users
+#    networks:
+#      - ms_network
+#    depends_on:
+#      - mongo
+#      - ms-register-and-auth
+#      - ms-knowledgearea-and-subjects
+#
+#  ms-exercises:
+#    build:
+#      context: ./ms-exercises
+#    container_name: ms-exercises
+#    ports:
+#      - "8084:8080"  # Mapeia a porta 8080 do container para a 8084 da máquina
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=DEV
+#      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/reforco-users
+#    networks:
+#      - ms_network
+#    depends_on:
+#      - mongo
+#      - ms-register-and-auth
+#      - ms-knowledgearea-and-subjects
+#      - ms-classes
+
+networks:
+  ms_network:
+    driver: bridge

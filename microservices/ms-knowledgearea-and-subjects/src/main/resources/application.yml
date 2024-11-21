@@ -1,5 +1,8 @@
 spring:
   application:
-    name: crud_users_and_auth
+    name: ms-knowledgearea-and-subjects
   profiles:
     active: DEV
+
+server:
+  port: 8080

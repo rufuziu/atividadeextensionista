@@ -19,7 +19,4 @@ management:
 
 logging:
   file:
-    name: ./logs/crud_users_and_auth.log
-
-server:
-  port: 8081
+    name: ./logs/ms-knowledgearea-and-subjects.log

@@ -79,7 +79,7 @@ public class RegisterAndAuthController {
             UserLoginDTO user = new UserLoginDTO(userDetails.getId(),userDetails.getEmail(),jwtCookie.getValue());
             log.info(request.getRemoteAddr().concat(" is successfully authenticated"));
             return ResponseEntity.ok()
-                    .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    //.header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                     .body(user);
         }catch(Exception e){
             log.error(request.getRemoteAddr().concat(" is successfully authenticated"));

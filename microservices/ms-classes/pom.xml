@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.rufuziu</groupId>
-	<artifactId>crud_users_and_auth</artifactId>
+	<artifactId>ms-classes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crud_users_and_auth</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ms-classes</name>
+	<description>Microservice to handle with classes</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
