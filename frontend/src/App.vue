@@ -2,8 +2,8 @@
 import { ref, onMounted, computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import router from './router';
-import AuthService from './services/AuthService';
-import JwtService from './services/JwtService';
+import AuthService from './services/register-and-auth/AuthService';
+import JwtService from './services/jwt/JwtService';
 
 
 let menu = ref([
@@ -179,8 +179,9 @@ function toggleRightDrawer() {
             v-model="user.password" />
           <q-btn label="Logar" style="background-color: #d3d3d3;" class="full-width q-mt-sm text-black"
             @click="authUser(user)" />
-          <q-btn label="Criar uma conta" style="background-color: #add8e6" class="full-width q-mt-sm text-black"
-            @click="this.$router.push('/register')" />
+          <q-btn style="background-color: #add8e6" class="full-width q-mt-sm text-black">
+            <RouterLink to="/register" style="text-decoration: none; color: inherit;">Criar uma conta</RouterLink>
+          </q-btn>
           <q-btn label="Esqueci a senha" style="color: #98ff98;" flat class="full-width q-mt-sm" />
         </q-card-section>
       </q-card>

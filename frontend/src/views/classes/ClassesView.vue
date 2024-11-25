@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted, ref } from "vue"
-import EducationLevelService from "../../services/EducationLevelService";
-import KnowledgeAreaService from "../../services/KnowledgeAreaService";
-import SubjectService from "../../services/SubjectService";
+import EducationLevelService from "../../services/knowledge-area-and-subjects/EducationLevelService";
+import KnowledgeAreaService from "../../services/knowledge-area-and-subjects/KnowledgeAreaService";
+import SubjectService from "../../services/knowledge-area-and-subjects/SubjectService";
 
 let educationLevels = ref([])
 let educationLevelId = ref('')

@@ -1,4 +1,4 @@
-<template>
+ <template>
     <main style="background-color: #f5f5dc;" class="full-height flex">
         <div id="info" class="text-center" style="width: 48%;">
             <h4>Junte-se à comunidade</h4>
@@ -50,7 +50,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import RegisterService from '../../services/RegisterService';
+import RegisterService from '../../services/register-and-auth/RegisterService';
 
 
 const roles = ref([
@@ -87,6 +87,7 @@ let registerMessage = ref(false)
 
 const registerUser = async (user) => {
 
+    user.birthday+="T00:00:00"
     user.roles.push({ name: selectedRole.value.name })
 
 
@@ -127,4 +128,4 @@ main {
     align-items: center;
     justify-content: center;
 }
-</style>
+</style> -->

@@ -12,35 +12,35 @@
         <div class="flex justify-center items-center q-gutter-x-md">
           <div id="teachers">
             <div class="circle bg-yellow">
-              <span class="cnumber">0</span>
+              <span class="cnumber">2</span>
             </div>
             <p class="ctext">Professores</p>
           </div>
 
           <div id="students">
             <div class="circle bg-blue">
-              <span class="cnumber">0</span>
+              <span class="cnumber">3</span>
             </div>
             <p class="ctext">Alunos</p>
           </div>
 
           <div id="lessons">
             <div class="circle bg-green">
-              <span class="cnumber">0</span>
+              <span class="cnumber">3</span>
             </div>
             <p class="ctext">Lições</p>
           </div>
 
           <div id="questions">
             <div class="circle bg-red">
-              <span class="cnumber">0</span>
+              <span class="cnumber">3</span>
             </div>
             <p class="ctext">Dúvidas</p>
           </div>
 
           <div id="exercises">
             <div class="circle bg-lime">
-              <span class="cnumber">0</span>
+              <span class="cnumber">2</span>
             </div>
             <p class="ctext">Exercícios</p>
           </div>

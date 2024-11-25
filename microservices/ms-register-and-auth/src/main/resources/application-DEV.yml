@@ -8,8 +8,8 @@ spring:
       secret: 0123456789012345678901234567890123456789012345678901234567890123
 
   data:
-  #  mongodb:
-  #    uri: mongodb://localhost:27017/reforco-users
+    mongodb:
+      uri: mongodb://localhost:27017/reforco-users
 
 management:
   endpoints:

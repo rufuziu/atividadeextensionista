@@ -22,7 +22,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import JwtService from '../../services/JwtService';
+import JwtService from '../../services/jwt/JwtService';
 
 let roles = ref([
     {
